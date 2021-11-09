@@ -24,7 +24,9 @@ const SuperHeader = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 5px 25px;
+  align-items: center;
+  padding: 5px 32px;
+  gap: 24px;
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};

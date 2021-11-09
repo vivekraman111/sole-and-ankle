@@ -41,10 +41,17 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price type={variant === 'on-sale' ? 'strike' : 'default'}>
+            {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {variant === 'on-sale' &&
+            <Price type={'red'}>
+              {formatPrice(price)}
+            </Price>
+          }
         </Row>
       </Wrapper>
       {variant !== 'default' && 
@@ -106,7 +113,21 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  color: ${({type}) => {
+    if(type === "strike") return COLORS.gray[700]
+    else if(type === 'red') return COLORS.primary
+    else return 'inherit'
+  }};
+  text-decoration: ${({type}) => {
+    if(type === "strike") return 'line-through'
+    else return 'inherit'
+  }};
+  font-weight: ${({type}) => {
+    if(type === "red") return WEIGHTS.medium
+    else return WEIGHTS.normal
+  }};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
