@@ -31,6 +31,7 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
@@ -46,13 +47,41 @@ const ShoeCard = ({
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
       </Wrapper>
+      {variant !== 'default' && 
+        <Label color={variant === 'on-sale' ? COLORS.primary : COLORS.secondary}>
+          {variant === 'on-sale' ? "Sale" : "Just released!"}
+        </Label>}
     </Link>
   );
 };
 
+const Label = styled.span`
+  position: absolute;
+  top: 10px;
+  right: -5px;
+  background-color: ${({color}) => color};
+  color: white;
+  padding: 7px 10px;
+  font-weight: ${WEIGHTS.bold};
+`
+
 const Link = styled.a`
+  position: relative;
   text-decoration: none;
   color: inherit;
+  flex: 100%;
+
+  @media (min-width: 1024px){
+    flex: 49%;
+  }
+
+  @media (min-width: 1280px){
+    flex: 32%;
+  }
+
+  @media (min-width: 1536px){
+    flex: 23.5%;
+  }
 `;
 
 const Wrapper = styled.article``;
@@ -61,10 +90,15 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+`;
 
 const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
   font-size: 1rem;
+
 `;
 
 const Name = styled.h3`
